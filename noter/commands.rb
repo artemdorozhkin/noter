@@ -2,7 +2,7 @@ require_relative 'config'
 include Config
 
 module Commands
-  def del_notes(count)
+  def del_note(index)
     notes = File.readlines(Config::NOTES_FILE)
     if notes.size == 0
       puts "You are not write any notes yet"
@@ -11,8 +11,8 @@ module Commands
       return
     end
 
-    if count.to_i > 0
-      notes.delete_at(count.to_i - 1)
+    if index.to_i > 0
+      notes.delete_at(index.to_i - 1)
     end
     File.open(Config::NOTES_FILE, "w") do |f|
       notes.each do |note|
@@ -56,6 +56,8 @@ module Commands
 
     notes = File.readlines(Config::NOTES_FILE).map(&:chomp)
     notes = notes.first(count.to_i) if count.to_i > 0
-    puts notes
+    notes.each_with_index do |note, i|
+      puts "#{i + 1}. #{note}"
+    end
   end
 end 
