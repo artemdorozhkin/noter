@@ -1,12 +1,11 @@
 require_relative 'config'
-include Config
 
 module Commands
-  def del_note(index)
+  def self.del_note(index)
     notes = File.readlines(Config::NOTES_FILE)
     if notes.size == 0
-      puts "You are not write any notes yet"
-      puts "For write new note use:"
+      puts "You haven't written any notes yet"
+      puts "To write a new note, use:"
       puts "  note w <your note text>"
       return
     end
@@ -21,14 +20,14 @@ module Commands
     end
   end
 
-  def clear_notes
+  def self.clear_notes
     if File.exist?(Config::NOTES_FILE)
       File.delete(Config::NOTES_FILE)
     end
-    puts "All notes was cleared"
+    puts "All notes have been cleared"
   end
 
-  def write_note(note)
+  def self.write_note(note)
     notes = File.exist?(Config::NOTES_FILE)? File.readlines(Config::NOTES_FILE) : []
     File.open(Config::NOTES_FILE, "w") do |f|
       f.puts note
@@ -36,7 +35,7 @@ module Commands
     end
   end
 
-  def grep_notes(frase)
+  def self.grep_notes(frase)
     notes = File.readlines(Config::NOTES_FILE)
     if notes.size == 0
       return
@@ -46,10 +45,10 @@ module Commands
     puts filtered.join()
   end
 
-  def print_notes(count = 0)
+  def self.print_notes(count = 0)
     unless File.exist?(Config::NOTES_FILE)
-      puts "You are not write any notes yet"
-      puts "For write new note use:"
+      puts "You haven't written any notes yet"
+      puts "To write a new note, use:"
       puts "  note w <your note text>"
       return
     end
