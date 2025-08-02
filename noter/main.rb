@@ -23,7 +23,7 @@ module Noter
 
     case command
     when "w", "write"
-      write_note ARGV[1...ARGV.size].join(" ")
+      Commands.write_note ARGV[1...ARGV.size].join(" ")
       puts "Note saved to: #{Config::NOTES_FILE}"
     when "r", "read"
       if ARGV.size == 1
